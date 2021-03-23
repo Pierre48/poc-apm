@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "YcVKpy+ouM3HBofHCS53nDm3lnZ/kkSonsz7O3Kc/NTTttslzCJRYUQsBAcnnh6pQYoygzpkyFmofiH1Fppggw==",
+  "success": true,
+  "projectFilePath": "/home/pierre/git/mit/poc-apm/src/AppServer/AppServer.csproj",
+  "expectedPackageFiles": [
+    "/home/pierre/.nuget/packages/prometheus-net/4.1.1/prometheus-net.4.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}

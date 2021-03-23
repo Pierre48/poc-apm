@@ -1,0 +1,9 @@
+metricbeat.modules:
+- module: prometheus
+  period: 1s
+  metricsets: ["collector"]
+  hosts: ["appserver:1234"]
+  metrics_path: /metrics
+
+output.elasticsearch:
+  hosts: ["http://es01:9200"]
