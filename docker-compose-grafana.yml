@@ -1,0 +1,53 @@
+
+version: '3.4'
+
+services:
+  appserver:
+    image: appserver
+    hostname: appserver
+    build:
+      context: .
+      dockerfile: src/AppServer/Dockerfile
+    ports:
+      - 1234:1234
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+    user: "0"
+    links:
+      - influxdb
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
+      - /srv/docker/grafana/data:/var/lib/grafana
+
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8090:8090"
+    environment:
+    - INFLUXDB_DATA_ENGINE=tsm1
+    - INFLUXDB_REPORTING_DISABLED=false
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/influxdb/data
+      - /srv/docker/influxdb/data:/var/lib/influxdb
+
+
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    links:
+      - influxdb
+    volumes:
+      - ./src/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+
